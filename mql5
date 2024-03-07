@@ -1,0 +1,112 @@
+mql5
+//+------------------------------------------------------------------+
+//|                                             Camarilla Equation |
+//|                                 Developed by Forex Robot Easy Team |
+//|                                           www.forexroboteasy.com |
+//+------------------------------------------------------------------+
+
+// Define trading modes
+enum TradingMode
+{
+   Conservative,
+   Aggressive
+}
+
+// Define key trading levels
+enum TradingLevel
+{
+   L3,
+   L4,
+   H3,
+   H4
+}
+
+//+------------------------------------------------------------------+
+//| Expert initialization function                                   |
+//+------------------------------------------------------------------+
+int OnInit()
+{
+   // Set trading mode
+   TradingMode mode = TradingMode.Conservative;
+
+   // Set trading instrument
+   string instrument = 'US30';
+
+   // Set initial stop-loss level
+   double stopLoss = 0.0;
+
+   // Set initial take-profit level
+   double takeProfit = 0.0;
+
+   // Set initial lot size
+   double lotSize = 0.01;
+
+   // Calculate key trading levels
+   double l3 = CalculateLevel(instrument, TradingLevel.L3);
+   double l4 = CalculateLevel(instrument, TradingLevel.L4);
+   double h3 = CalculateLevel(instrument, TradingLevel.H3);
+   double h4 = CalculateLevel(instrument, TradingLevel.H4);
+
+   // Check trading mode
+   if (mode == TradingMode.Conservative)
+   {
+      // Set stop-loss level
+      stopLoss = l3;
+
+      // Place buy order at L4 level
+      PlaceOrder(instrument, OrderType.Buy, l4, takeProfit, stopLoss, lotSize);
+
+      // Place sell order at H4 level
+      PlaceOrder(instrument, OrderType.Sell, h4, takeProfit, stopLoss, lotSize);
+   }
+   else if (mode == TradingMode.Aggressive)
+   {
+      // Set stop-loss level
+      stopLoss = l4;
+
+      // Place buy order at L3 level
+      PlaceOrder(instrument, OrderType.Buy, l3, takeProfit, stopLoss, lotSize);
+
+      // Place sell order at H3 level
+      PlaceOrder(instrument, OrderType.Sell, h3, takeProfit, stopLoss, lotSize);
+   }
+
+   return(INIT_SUCCEEDED);
+}
+
+//+------------------------------------------------------------------+
+//| Expert tick function                                             |
+//+------------------------------------------------------------------+
+void OnTick()
+{
+   // Perform necessary operations on every tick
+}
+
+//+------------------------------------------------------------------+
+//| Calculate trading level                                           |
+//+------------------------------------------------------------------+
+double CalculateLevel(string instrument, TradingLevel level)
+{
+   // Implement Camarilla Equation algorithm to calculate level
+   double result = 0.0;
+
+   // Add necessary calculations here
+
+   return result;
+}
+
+//+------------------------------------------------------------------+
+//| Place order function                                             |
+//+------------------------------------------------------------------+
+void PlaceOrder(string instrument, int orderType, double price, double takeProfit, double stopLoss, double lotSize)
+{
+   // Execute trading order based on specified parameters
+}
+
+//+------------------------------------------------------------------+
+//| Expert deinitialization function                                 |
+//+------------------------------------------------------------------+
+void OnDeinit(const int reason)
+{
+   // Clean up resources and perform necessary actions before deinitialization
+}
